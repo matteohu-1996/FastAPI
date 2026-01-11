@@ -41,4 +41,13 @@ def get_categories():
         "categories": list(set_categorie),
         "count": len(set_categorie)
     }
-
+#TODO: fare un endpoint che restituisca gli ingredienti unici
+@app.get("/ingredients")
+def get_ingredients():
+    set_ingredients = set()
+    for ingredient in MENU:
+        set_ingredients.add(ingredient["ingredienti"])
+    return {
+        "ingredients": list(set_ingredients),
+        "count": len(set_ingredients)
+    }
