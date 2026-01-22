@@ -45,9 +45,19 @@ def random_seed():
 # - lo stesso per colonne
 
 # 1 fare una funzione che calcoli il conteggio di un insieme di posti
-def conta_posti():
-    for posti in cinema_hall:
-        count(posti)
+def conta_prenotati(lista_posti: list[dict]) -> int:
+    tot_prenotati = 0
+    for posto in lista_posti:
+        if posto["is_booked"]:
+            tot_prenotati += 1
+    return tot_prenotati
 
 # 2 fare una funzione che dati dei conteggi da quella sopra [e il numero] dica la media
+def media_di_gruppi(gruppi: list[list[dict]]) -> float:
+    lista_totali = []
+    for gruppo in gruppi:
+        totale_gruppo = conta_prenotati(gruppo)
+        lista_totali.append(totale_gruppo)
+    return sum(lista_totali) / len(lista_totali)
+
 # 3 applicare queste funzioni sia alle righe che alle colonne [da ottenere]
