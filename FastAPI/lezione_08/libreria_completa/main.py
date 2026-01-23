@@ -20,5 +20,10 @@ def root():
 app.include_router(
     authors.router,
     prefix="/authors",
-    tags=["authors"]
+    tags=["Autori"]
+)
+app.include_router(
+    books.router,
+    prefix="/books",
+    tags=["Libri"]
 )
