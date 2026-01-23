@@ -1,6 +1,6 @@
 """
 Gestiamo il catalogo dei film del nostro cinema.
-Ogni film ha titolo, regista, durata, attori (>0), voto, imdb
+Ogni film ha titolo, regista, durata, attori (>0), voto imdb
 Vogliamo gestire l'inserimento nel programma del nostro cinema di film nuovi e togliere quelli "vecchi" [admin]
 Del regista sappiamo nome e cognome, come degli attori
 
@@ -17,22 +17,21 @@ from typing import List
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-class Film (BaseModel):
+class FilmBase (BaseModel):
+    id: int
     title: str
-    regista: str
-    durata: int
-    attori: str
-    voto: int
-    imdb: float
+    id_director: int
+    ids_actor: List[int]
+    duration: int # in secondi, va bene anche minuti
+    imdb: float # voto del film
 
-class Regista (BaseModel):
+class RegistaBase (BaseModel):
     id: int
-    nome: str
-    cognome: str
-    nome: str
-    cognome: str
+    name: str
+    surname: str
 
-class Attori (BaseModel):
+
+class AttoreBase (BaseModel):
     id: int
-    nome: str
-    cognome: str
+    name: str
+    surname: str
