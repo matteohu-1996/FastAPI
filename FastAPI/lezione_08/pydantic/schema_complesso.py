@@ -35,3 +35,17 @@ class AttoreBase (BaseModel):
     id: int
     name: str
     surname: str
+
+class FilmCompleto(BaseModel): # per come stiamo scrivendo il codice, questi
+    # parametri sono obbligatori
+    id: int
+    title: str
+    duration: int
+    imdb: float
+    director: RegistaBase # mettiamo in questo campo tutti i dati del regista
+    actors: List[AttoreBase]
+
+class FilmGiornata(BaseModel):
+    lista_film: List[FilmCompleto] # perchè abbiamo in mente che nella home
+    # del cinema si vedranno in dettaglio i film della giornata
+
