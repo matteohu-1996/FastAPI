@@ -4,16 +4,14 @@ from datetime import date
 
 # Badge
 class BadgeBase(BaseModel):
-    badge_employee_name: str
-    badge_code: str
+    code: str
+    expiration_date: date
 
 class BadgeCreate(BadgeBase):
-    expiration_date: date
     employee_id: int
 
-class Badge(BaseModel):
+class Badge(BadgeBase):
     badge_id: int
-    expiration_date: date
     class Config:
         from_attributes = True
 
@@ -23,7 +21,7 @@ class DepartmentBase(BaseModel):
     department_name: str
 
 class DepartmentCreate(DepartmentBase):
-    pass
+    department_id: Optional[int] = None
 
 
 # dipendenti
@@ -33,19 +31,18 @@ class EmployeeBase(BaseModel):
     department_id: int = Field(..., gt=0)
 
 class EmployeeCreate(EmployeeBase):
-    pass
+    employee_id: Optional[int] = None
 
 class EmployeeResponse(BaseModel):
     employee_id: int
-    badge: Badge
     badge: Optional[Badge] = None
-    department: DepartmentBase
     class Config:
         from_attributes = True
 
 
 class DepartmentResponse(BaseModel):
     department_id: int
-    employees: List[EmployeeResponse]
+    name: str
+    employees: List[EmployeeResponse] = []
     class Config:
         from_attributes = True

@@ -4,7 +4,10 @@ import models, schemas
 
 # creo dipartimento
 def create_department(db: Session, department: schemas.DepartmentCreate):
-    db_department = models.Department(**department.model_dump())
+    db_department = models.Department(
+        department_id=department.department_id,
+        name=department.name
+    )
     db.add(db_department)
     db.commit()
     db.refresh(db_department)
@@ -36,7 +39,7 @@ def create_badge(db: Session, badge: schemas.BadgeCreate):
     employee = db.query(models.Employee).filter(models.Employee.employee_id ==
                                          employee_id).first()
     if not employee:
-        raise HTTPException(status_code=404, detail=f"Badge con id {badge.id} non trovato ")
+        raise HTTPException(status_code=404, detail=f"Dipendente con id {employee_id} non trovato ")
     db_badge = models.Badge(**badge.model_dump())
 
     try:
@@ -49,6 +52,7 @@ def create_badge(db: Session, badge: schemas.BadgeCreate):
         raise e
 
 # restituire un dipendente con un join automatico sul badge
-def get_employee(db: Session, employee: schemas.Employee):
-    return db.query(models.Badge).join(models.Employee)\
-        .filter(models.Employee.employee_id == employee.id).first()
+def get_employee(db: Session, employee_id: int):
+    # Eseguo una JOIN semplice (INNER JOIN) tra Employee e Badge
+    return db.query(models.Employee).join(models.Badge)\
+        .filter(models.Employee.employee_id == employee_id).first()

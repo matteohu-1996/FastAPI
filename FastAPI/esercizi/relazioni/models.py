@@ -14,7 +14,7 @@ class Employee(Base):
     __tablename__ = 'employee'
     employee_id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String(100))
-    role = Column(String)
+    role = Column(String(50))
 
     # relazione A 1:N appartiene a un solo department
     department_id = Column(Integer, ForeignKey('department.department_id'))
